@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link href="login.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="login.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+    window.onload=function() {
+        document.getElementById("login").onclick = function () {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                //这里的回调函数被调用多次
+                //console.log(xhr.readyState)
+                if (xhr.readyState == 4) {
+                    //响应结束了
+                    if (this.status == 404) {
+                        alert("对不起，您访问的资源不存在，请检查路径")
+                    } else if (this.status == 500) {
+                        alert("服务器发生了严重的内部错误")
+                    } else if (this.status == 200) {
+                        // alert("响应成功")
+                        //通过XMLHTTPrequest对象获取响应信息
+                        // var message = this.responseText;
+                        if (this.responseText.charCodeAt() ==  "普通用户".charCodeAt()) {
+                            window.location.href = '/DSTBJavaWeb/User/firstpage.html';
+                        }
+                        else if (this.responseText.charCodeAt() ==  "销售人员".charCodeAt()) {
+                            window.location.href = '/DSTBJavaWeb/Worker0/firstpage.html';
+                        }
+                        if (this.responseText.charCodeAt() ==  "管理人员".charCodeAt()) {
+                            window.location.href = '/DSTBJavaWeb/Worker1/firstpage.html';
+                        }
+                        alert("登录成功")
+                        // document.getElementById("isMsg").innerHTML=this.responseText
+                    } else {
+                        alert(this.responseText)
+                    }
+                }
+            };
+            //发送Ajax get 请求
+            xhr.open("post", "/DSTBJavaWeb/AjaxLoginServlet", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            var account = document.getElementById("uaccount").value;
+            var pwd = document.getElementById("upwd").value;
+            var type = document.getElementById("type").value;
+            // alert(type)
+            xhr.send("uaccount=" + account + "&upwd=" + pwd + "&type=" + type)
+            //注册回调函数，这个函数在XMLHttpRequest对象的readyState状态值发生改变时调用
+        };
+
+    };
+
+
+</script>
+
+<div class="wrapper">
+    <div class="logo">
+        <p><img src="/image/logo(白).png" alt="logo" width=80px height=60px></p>
+    </div>
+    <h1>欢迎进入同源科技公司管理系统</h1>
+    <div class="RegisterDiv">
+<!--        <form action="">-->
+            <h2>登  录</h2>
+            <!--            autofocus：页面一旦加载，光标就定位在输入框里  required 属性规定必需在提交之前填写输入字段-->
+            <p>用户账号<input id="uaccount" type="text"  autofocus><!-- onblur="checkUaccount()">-->
+                <span id="uacontent" ></span></p>
+            <p>用户密码<input id="upwd" type="password" placeholder='6~20位且包含数字/字母/特殊符号' ><!--onblur="checkUpwd()">-->
+                <span id="upcontent" ></span></p>
+            <!--                <p>确认密码<input id="checkupwd" type="password"  onblur="checkReupwd()">-->
+            <!--                    <span id="ucpcontent" ></span></p>-->
+            <p>用户类型
+                <select id="type">
+                    <option value="user">普通用户</option>
+                    <option value="worker0">销售人员</option>
+                    <option value="worker1">管理人员</option>
+                </select>
+            </p>
+            <p id="forget" onclick="window.location.href = '/DSTBJavaWeb/User/forget.html'"><a>忘记密码？前往认证 ></a ></p>
+            <p id="button">
+                <input type="submit" class="button" value="确认" id="login">
+                <input type="reset" class="button" value="注册" id="enroll" onclick="window.location.href='/DSTBJavaWeb/Register/register.html'"/>
+            </p>
+<!--        </form>-->
+        <!--            <div id="isMsg"></div>-->
+    </div>
+</div>
+
+</body>
+</html>

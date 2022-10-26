@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link href="register.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="register.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+    window.onload=function() {
+        document.getElementById("confirm").onclick = function () {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                //这里的回调函数被调用多次
+                //console.log(xhr.readyState)
+                if (xhr.readyState == 4) {
+                    //响应结束了
+                    if (this.status == 404) {
+                        alert("对不起，您访问的资源不存在，请检查路径")
+                    } else if (this.status == 500) {
+                        alert("服务器发生了严重的内部错误")
+                    } else if (this.status == 200) {
+                        // alert("响应成功")
+                        //通过XMLHTTPrequest对象获取响应信息
+                        // var message = this.responseText;
+                        if (this.responseText.charCodeAt() == "注册成功".charCodeAt()) {
+                            window.location.href = "/DSTBJavaWeb/Login/login.html"
+                        }
+                        alert(this.responseText)
+                        // document.getElementById("isMsg").innerHTML=this.responseText
+                    } else {
+                        alert("报错" + this.status)
+                    }
+                }
+            };
+
+            //发送Ajax get 请求
+            xhr.open("post", "/DSTBJavaWeb/AjaxRegisterServlet", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+            var account = document.getElementById("uaccount").value;
+            // alert(account);
+            var pwd = document.getElementById("upwd").value;
+            var name = document.getElementById("uname").value;
+            var radio = document.getElementsByName("usex");
+            // alert(radio[1].value)
+            var sex;
+            var i = 0;
+            var flag = true;
+            while (flag) {
+                if (radio[i].checked) {
+                    sex = radio[i].value;
+                    // console.log(sex)
+                    flag = false;
+                }
+                i = i + 1;
+            }
+            var telephone = document.getElementById("utel").value;
+            var site = document.getElementById("usite").value;
+
+            xhr.send("uaccount=" + account + "&upwd=" + pwd + "&uname=" + name + "&usex=" + sex + "&utel=" + telephone + "&usite=" + site)
+            //注册回调函数，这个函数在XMLHttpRequest对象的readyState状态值发生改变时调用
+        }
+    }
+</script>
+
+
+
+<div class="wrapper">
+    <div class="logo">
+        <p><img src="/image/logo(白).png" alt="logo" width=80px height=60px></p>
+    </div>
+    <h1>欢迎进入同源科技公司管理系统</h1>
+    <div class="RegisterDiv">
+            <h2>注  册</h2>
+            <!--            autofocus：页面一旦加载，光标就定位在输入框里  required 属性规定必需在提交之前填写输入字段-->
+            <p>用户账号<input id="uaccount" type="text" autofocus onblur="checkUaccount()">
+                <span id="uacontent" ></span></p>
+            <p>用户密码<input id="upwd" type="password" placeholder='6~20位且包含数字/字母/特殊符号' onblur="checkUpwd()">
+                <span id="upcontent" ></span></p>
+            <p>确认密码<input id="checkupwd" type="password"  onblur="checkReupwd()">
+                <span id="ucpcontent" ></span></p>
+            <p>用户姓名<input id="uname" type="text" onblur="checkUname()">
+                <span id="uncontent"></span></p>
+            <p class="usex">用户性别<input  type="radio" name="usex" value="男" />男<input  type="radio" name="usex" value="女"/>女</p>
+            <p>用户电话<input id="utel" type="text" placeholder='请输入11位电话号码' onblur="checkUtel()">
+                <span id="utcontent"></span>
+            </p>
+            <p>用户地址<input id="usite" type="text"></p>
+            <p id="button">
+                <input type="submit" class="button" value="确认" id="confirm">
+                <input type="reset" class="button" value="重置">
+            </p>
+    </div>
+</div>
+</body>
+</html>
