@@ -1,9 +1,11 @@
 package com.example.ty.controller;
 
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.ty.bean.Addition.UserAddition;
 import com.example.ty.bean.User;
 import com.example.ty.common.QueryPageParam;
 import com.example.ty.common.Result;
@@ -12,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
+
 
 /**
  * <p>
@@ -24,9 +26,33 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/user")
+@CrossOrigin
 public class UserController {
     @Autowired
     private IUserService iUserService;
+//    @Autowired
+//    private JwtUtil jwtUtil;
+
+    @PostMapping("/login")
+    public Result login(@RequestBody UserAddition userAddition) {
+        if (StrUtil.isBlank(userAddition.getUaccount()) || StrUtil.isBlank(userAddition.getUpwd())) {
+            return Result.error(400, "参数不足错误");
+        }
+        UserAddition userAddition1 = iUserService.login(userAddition);
+        return Result.success(userAddition1,"登录成功");
+    }
+
+//        单纯注册，未加入token认证
+//    @PostMapping("/login")
+//    public Result login(@RequestBody User user) {
+//        List list = iUserService.lambdaQuery()
+//                .eq(User::getUaccount, user.getUaccount())
+//                .eq(User::getUpwd, user.getUpwd()).list();
+//        System.out.println(user.getUaccount());
+//        System.out.println(list);
+//        return list.size()>1?Result.success(list.get(0),"登录成功"):Result.error();
+//    }
+
 
     //查询特定的
     @GetMapping("/{uid}")
@@ -39,7 +65,7 @@ public class UserController {
     @GetMapping("/findAll")
     public Result listall(){
         //iUserService.list();
-        return Result.success(iUserService.list());
+        return Result.success(iUserService.list(),"查询成功");
     }
 
     //新增
@@ -53,14 +79,14 @@ public class UserController {
     @PostMapping("/modify")
     public Result modify(@RequestBody User user){
         //iUserService.updateById(user);
-        return Result.success(iUserService.updateById(user));
+        return Result.success(iUserService.updateById(user),"修改成功");
     }
 
     //新增或修改
     @PostMapping("/saveOrmodify")
     public Result saveOrmodify(@RequestBody User user){
        // iUserService.saveOrUpdate(user);
-        return Result.success(iUserService.saveOrUpdate(user));
+        return Result.success(iUserService.saveOrUpdate(user),"修改成功");
     }
 
     //删除
@@ -72,16 +98,16 @@ public class UserController {
 
     //查询（模糊、匹配）
     @PostMapping("/blur")
-    public List<User> blur(@RequestBody User user){
+    public Result blur(@RequestBody User user){
         LambdaQueryWrapper<User> lambdaQueryWrapper=new LambdaQueryWrapper<>();
         lambdaQueryWrapper.like(User::getUname,user.getUname());
        // lambdaQueryWrapper.eq(User::getUname,user.getUname()); 完全匹配
-        return iUserService.list(lambdaQueryWrapper);
+        return Result.success(iUserService.list(lambdaQueryWrapper),"查询成功");
     }
 
     //分页查询
     @PostMapping("/page")
-    public List<User> page(@RequestBody QueryPageParam queryPageParam){
+    public Result page(@RequestBody QueryPageParam queryPageParam){
         //public List<User> page(@RequestBody Hashmap map){
 //        System.out.println(queryPageParam);
 //        //System.out.println("pageSize==="+(String)map.get(pageSize));
@@ -108,12 +134,12 @@ public class UserController {
         IPage result=iUserService.page(page,lambdaQueryWrapper);
         System.out.println("total=="+result.getTotal());
 
-        return result.getRecords();
+        return Result.success(result.getRecords(),"查询成功");
     }
 
     //分页查询
     @PostMapping("/pagedefine")
-    public List<User> pagedefine(@RequestBody QueryPageParam queryPageParam){
+    public Result pagedefine(@RequestBody QueryPageParam queryPageParam){
         HashMap param=queryPageParam.getParam();
 //        String uname=(String)param.get("uname");
 //        System.out.println("uaccount==="+param.get("uaccount"));
@@ -128,8 +154,7 @@ public class UserController {
 
         IPage result=iUserService.pagedefine(page);
         System.out.println("total=="+result.getTotal());
-
-        return result.getRecords();
+        return Result.success(result.getRecords(),"查询成功");
     }
 
 

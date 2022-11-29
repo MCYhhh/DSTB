@@ -45,18 +45,22 @@ public class Result {
 
         return new Result(200, "",total, data);
     }
-    public static Result success(Object data) {
+    public static Result success(Object data,String msg) {
 
-        return new Result(200, "", (long) getTotal(data), data);
+        return new Result(200, msg, (long) getTotal(data), data);
     }
 
     public static Result error(int code, String msg) {
 
         return new Result(code, msg, 0L,null);
     }
-
     public static Result error() {
-        return new Result(500, "系统错误", 0L,null);
+
+        return new Result(400, "密码或者账号错误",0L,null);
     }
+
+//    public static Result error() {
+//        return new Result(500, "系统错误", 0L,null);
+//    }
 
 }
