@@ -1,5 +1,6 @@
 package com.example.ty.service;
 
+import com.example.ty.bean.Addition.WorkerAddition;
 import com.example.ty.bean.Worker;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IWorkerService extends IService<Worker> {
 
+//    WorkerAddition login(WorkerAddition workerAddition);
 }

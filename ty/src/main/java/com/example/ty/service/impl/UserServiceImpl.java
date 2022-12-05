@@ -50,19 +50,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
     }
 
-//    @Override
-//    public User register(UserAddition userAddition) {
-//
-//        User one = getUserInfo(userAddition);
-//        if (one == null) {
-//            one = new User();
-//            BeanUtil.copyProperties(userAddition, one, true);
-//            save(one);  // 把 copy完之后的用户对象存储到数据库
-//        } else {
-//            throw new ServiceException(501, "用户已存在");
-//        }
-//        return one;
-//    }
+    @Override
+    public User register(UserAddition userAddition) {
+        User one = getUserInfo(userAddition);
+        if (one == null) {
+            one = new User();
+            BeanUtil.copyProperties(userAddition, one, true);
+            save(one);  // 把 copy完之后的用户对象存储到数据库
+        } else {
+            throw new ServiceException(600, "用户已存在");
+        }
+        return one;
+    }
+
+
 
     //此方法用于查询用户是否存在，只要名字一样就是存在，
     private User getUserInfo(UserAddition userAddition) {

@@ -18,4 +18,6 @@ public interface IUserService extends IService<User> {
     IPage pagedefine(IPage<User> page);
 
     UserAddition login(UserAddition userAddition);
+
+    User register(UserAddition userAddition);
 }

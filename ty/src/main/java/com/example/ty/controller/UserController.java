@@ -3,6 +3,7 @@ package com.example.ty.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.ty.bean.Addition.UserAddition;
@@ -26,7 +27,7 @@ import java.util.HashMap;
  */
 @RestController
 @RequestMapping("/user")
-@CrossOrigin
+//@CrossOrigin
 public class UserController {
     @Autowired
     private IUserService iUserService;
@@ -39,6 +40,8 @@ public class UserController {
             return Result.error(400, "参数不足错误");
         }
         UserAddition userAddition1 = iUserService.login(userAddition);
+        System.out.println(userAddition1);
+        System.out.println(Result.success(userAddition1,"登录成功").getCode());
         return Result.success(userAddition1,"登录成功");
     }
 
@@ -50,8 +53,18 @@ public class UserController {
 //                .eq(User::getUpwd, user.getUpwd()).list();
 //        System.out.println(user.getUaccount());
 //        System.out.println(list);
-//        return list.size()>1?Result.success(list.get(0),"登录成功"):Result.error();
+//        return list.size()>0?Result.success(list.get(0),"登录成功"):Result.error();
 //    }
+
+    @PostMapping("/register")
+    public Result register(@RequestBody UserAddition userAddition) {
+        String uaccount = userAddition.getUaccount();
+        String upwd = userAddition.getUpwd();
+        if (StrUtil.isBlank(uaccount) || StrUtil.isBlank(upwd)) {
+            return Result.error(400, "参数不足错误");
+        }
+        return Result.success(iUserService.register(userAddition),"注册成功");
+    }
 
 
     //查询特定的
@@ -100,6 +113,8 @@ public class UserController {
     @PostMapping("/blur")
     public Result blur(@RequestBody User user){
         LambdaQueryWrapper<User> lambdaQueryWrapper=new LambdaQueryWrapper<>();
+        if(StrUtil.isBlank(user.getUname()))
+            return Result.error();
         lambdaQueryWrapper.like(User::getUname,user.getUname());
        // lambdaQueryWrapper.eq(User::getUname,user.getUname()); 完全匹配
         return Result.success(iUserService.list(lambdaQueryWrapper),"查询成功");
@@ -153,7 +168,7 @@ public class UserController {
 //        lambdaQueryWrapper.eq(User::getUname,uname);
 
         IPage result=iUserService.pagedefine(page);
-        System.out.println("total=="+result.getTotal());
+        System.out.println("total=="+result.getRecords());
         return Result.success(result.getRecords(),"查询成功");
     }
 
@@ -172,5 +187,6 @@ public class UserController {
 
         return Result.success(result.getRecords(),result.getTotal());
     }
+
 
 }

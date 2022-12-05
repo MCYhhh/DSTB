@@ -1,5 +1,7 @@
 package com.example.ty.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.ty.bean.Electronics;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -15,4 +17,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface ElectronicsMapper extends BaseMapper<Electronics> {
 
+    IPage pagedefine(Page<Electronics> page);
 }
