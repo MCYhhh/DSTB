@@ -17,9 +17,17 @@
         </el-table-column>
           <el-table-column prop="edesp" label="介绍" width="140">
         </el-table-column>
+
          <el-table-column prop="operate" label="操作">
-          <el-button type="success">编辑</el-button>
-          <el-button type="danger">删除</el-button>
+             <template slot-scope="scope">
+        <el-button type="success"
+          @click.native.prevent="buyElectronics(scope.$index, tableData)"
+          size="small">
+          {{display}}
+        </el-button>
+      </template>
+          <!-- <el-button type="success" @click="buyElectronics">购买</el-button> -->
+          <!-- <el-button type="danger">删除</el-button> -->
         </el-table-column>
       </el-table>
            <el-pagination
@@ -36,7 +44,7 @@
 </template>
 
 <script>
-import { FindElectronicsApi } from "@/api/index";
+import { FindElectronicsApi,addOrder} from "@/api/index";
 export default {
    name:'Home',
    data(){
@@ -47,7 +55,8 @@ export default {
         currentPage1: 5,
         currentPage2: 5,
         currentPage3: 5,
-        currentPage4: 4
+        currentPage4: 4,
+        display: "购买"
     };
    },
    methods:{
@@ -55,26 +64,32 @@ export default {
             // async function (){
               const { data: res } = await FindElectronicsApi();
               console.log(res)
-              // this.tableData = res.data;
-            // this.$axios.post("/electronics/pagedefine").then(res=>res.data).then(res=>{
-                // const json=JSON.stringify(this.loginForm);
-                // const {data: res}=await pageUserApi();
-                // console.log(res);
-                // if(res.code===200)
                   this.tableData=res.data;
-                // else{
-                //   alert("获取数据失败")
-                // }
-            // }
-            // })
         },
          handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
       },
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
-      }
+      },
+       async buyElectronics(index, rows){
+        console.log(rows.eid)
+        // const { data: res } = await addOrder();
+        // // console.log(res)
+        // if(res.code!=200)
+        //       return this.$message.error("登录不成功");
+        // this.$message.success("购买成功");
+        // rows.splice(index, 1);
+        // console.log("kakkkkkkak")
+        // console.log(index)
+        //  console.log(rows)
+
+        // this.tableData=res.data;
+
     },
+    },
+   
+    
     created(){
         this.loadGet();
     }

@@ -49,6 +49,7 @@ export default {
         },
     },
     created(){
+      console.log("11111111")
         this.loadGet();
     }
 }

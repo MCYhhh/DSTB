@@ -14,5 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IWorkerService extends IService<Worker> {
 
-//    WorkerAddition login(WorkerAddition workerAddition);
+    WorkerAddition login(WorkerAddition workerAddition);
 }

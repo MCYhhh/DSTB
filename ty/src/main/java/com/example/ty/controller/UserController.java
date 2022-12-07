@@ -67,12 +67,13 @@ public class UserController {
     }
 
 
-    //查询特定的
+    //根据uid查询特定的
     @GetMapping("/{uid}")
     public Result findOne(Integer uid){
-        iUserService.getById(uid);
-        return Result.success();
+//        iUserService.getById(uid);
+        return Result.success(iUserService.getById(uid),"特定用户查询成功");
     }
+
 
     //查询所有
     @GetMapping("/findAll")
@@ -119,6 +120,15 @@ public class UserController {
        // lambdaQueryWrapper.eq(User::getUname,user.getUname()); 完全匹配
         return Result.success(iUserService.list(lambdaQueryWrapper),"查询成功");
     }
+
+//    模糊匹配名字
+    @GetMapping("/{name}")
+    public Result blurname(String name){
+        //iUserServicblurnamee.list();
+        System.out.println(iUserService.throughName(name));
+        return Result.success(iUserService.throughName(name),"名字模糊查询成功");
+    }
+
 
     //分页查询
     @PostMapping("/page")

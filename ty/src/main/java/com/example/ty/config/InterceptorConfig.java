@@ -13,7 +13,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(jwtInterceptor()) //注册拦截器
 //        .excludePathPatterns("/**");
                 .addPathPatterns("/**") //拦截一切请求(任何请求路径)
-                .excludePathPatterns("/user/login","/worker/**");//放过login登录请求和worker的请求
+                .excludePathPatterns("/user/login","/worker/login");//放过login登录请求和worker的请求
 //        registry.addInterceptor(jwtInterceptor())
 //                .addPathPatterns("/**")  // ������������ͨ���ж�token�Ƿ�Ϸ��������Ƿ���Ҫ��¼
 //                .excludePathPatterns("/user/login", "/user/register", "/**/export", "/**/import", "/file/**"

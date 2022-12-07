@@ -4,5 +4,9 @@
     <select id="pagedefine" resultType="com.example.ty.bean.User">
         select * from user
     </select>
+    <select id="throughName" resultType="com.example.ty.bean.User">
+        select * from user where uname like '%#{name}' by user.uname;
+    </select>
+
 
 </mapper>

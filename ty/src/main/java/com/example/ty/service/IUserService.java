@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.ty.bean.Addition.UserAddition;
 import com.example.ty.bean.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.ty.bean.vo.OrderElectronicVo;
 import com.example.ty.common.Result;
+
+import java.util.List;
 
 /**
  * <p>
@@ -21,4 +24,5 @@ public interface IUserService extends IService<User> {
 
     User register(UserAddition userAddition);
 
+    List<User> throughName(String name);
 }

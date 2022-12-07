@@ -31,32 +31,42 @@ public class ElectronicsController {
     @Autowired
     private IElectronicsService iElectronicsService ;
 
-    //查找所有
+    //查询所有
     @GetMapping("/findAll")
-    public List<Electronics> listall(){
-        return iElectronicsService.list();
+    public Result listall(){
+        //iUserService.list();
+        return Result.success(iElectronicsService.list(),"查询成功");
     }
 
     //新增
     @PostMapping("/save")
-    public boolean save(@RequestBody Electronics electronics){
-        return iElectronicsService.save(electronics);
+    public Result save(@RequestBody Electronics electronics){
+
+        return Result.success(iElectronicsService.save(electronics),"添加成功");
     }
+
     //修改
     @PostMapping("/modify")
-    public boolean modify(@RequestBody Electronics electronics){
-        return iElectronicsService.updateById(electronics);
+    public Result modify(@RequestBody Electronics electronics){
+        //iUserService.updateById(user);
+        return Result.success(iElectronicsService.updateById(electronics),"修改成功");
     }
+
     //新增或修改
     @PostMapping("/saveOrmodify")
-    public boolean saveOrmodify(@RequestBody Electronics electronics){
-        return iElectronicsService.saveOrUpdate(electronics);
+    public Result saveOrmodify(@RequestBody Electronics electronics){
+        // iUserService.saveOrUpdate(user);
+        return Result.success(iElectronicsService.saveOrUpdate(electronics),"修改成功");
     }
+
     //删除
-    @GetMapping("/delete")
-    public boolean delete(Integer wid){
-        return iElectronicsService.removeById(wid);
+    @DeleteMapping("/delete")
+    public Result delete(Integer uid){
+        return Result.success(iElectronicsService.removeById(uid),"删除成功");
     }
+
+
+
 
     //查询（模糊、匹配）
     @PostMapping("/blur")

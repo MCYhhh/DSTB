@@ -6,6 +6,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.example.ty.bean.User;
+import com.example.ty.bean.Worker;
 import com.example.ty.config.AuthAccess;
 import com.example.ty.exception.ServiceException;
 import com.example.ty.service.IUserService;

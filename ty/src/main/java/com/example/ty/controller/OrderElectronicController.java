@@ -17,11 +17,9 @@ public class OrderElectronicController {
     @GetMapping("/myorder")
     public Result orderdetail(Integer id){
         //iUserService.list();
-//        System.out.println(iOrderElectronicService.orderdetail(id));
-
+        System.out.println(iOrderElectronicService.orderdetail(id));
         return Result.success(iOrderElectronicService.orderdetail(id),"我的订单查找成功");
     }
-
 
 
 }

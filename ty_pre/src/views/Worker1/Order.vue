@@ -44,7 +44,7 @@ export default {
    async loadGet(){
               const { data: res } = await FindElectronicsApi();
               console.log(res)
-              this.tableData=res;
+              this.tableData=res.data;
         },
     },
     created(){

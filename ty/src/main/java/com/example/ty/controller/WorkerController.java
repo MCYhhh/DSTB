@@ -27,26 +27,32 @@ public class WorkerController {
     @Autowired
     private IWorkerService iWorkerService ;
 
-//    @PostMapping("/login")
-//    public Result login(@RequestBody WorkerAddition workerAddition) {
-//        if (StrUtil.isBlank(workerAddition.getWaccount()) || StrUtil.isBlank(workerAddition.getWpwd())) {
-//            return Result.error(400, "参数不足错误");
-//        }
-//        WorkerAddition workerAddition1 = iWorkerService.login(workerAddition);
-//        return Result.success(workerAddition1,"登录成功");
-//    }
-
-//            单纯注册，未加入token认证
     @PostMapping("/login")
-    public Result login(@RequestBody Worker worker) {
-        List list = iWorkerService.lambdaQuery()
-                .eq(Worker::getWaccount, worker.getWaccount())
-                .eq(Worker::getWpwd, worker.getWpwd()).list();
-//        System.out.println(worker.getUaccount());
-        System.out.println(list.size());
-        return list.size()>0?Result.success(list.get(0),"登录成功"):Result.error();
+    public Result login(@RequestBody WorkerAddition workerAddition) {
+        if (StrUtil.isBlank(workerAddition.getWaccount()) || StrUtil.isBlank(workerAddition.getWpwd())) {
+            return Result.error(400, "参数不足错误");
+        }
+        WorkerAddition workerAddition1 = iWorkerService.login(workerAddition);
+        System.out.println(workerAddition1);
+        return Result.success(workerAddition1,"登录成功");
     }
 
+////            单纯注册，未加入token认证
+//    @PostMapping("/login")
+//    public Result login(@RequestBody Worker worker) {
+//        List list = iWorkerService.lambdaQuery()
+//                .eq(Worker::getWaccount, worker.getWaccount())
+//                .eq(Worker::getWpwd, worker.getWpwd()).list();
+////        System.out.println(worker.getUaccount());
+//        System.out.println(list.size());
+//        return list.size()>0?Result.success(list.get(0),"登录成功"):Result.error();
+//    }
+        //查询所有
+        @GetMapping("/findAll")
+        public Result listall(){
+            //iUserService.list();
+            return Result.success(iWorkerService.list(),"查询成功");
+        }
 
 
 

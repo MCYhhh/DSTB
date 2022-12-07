@@ -96,3 +96,12 @@ export function listAllWorker0Api() {
         method: 'get'
     })
 }
+
+// 增加用户订单
+export function addOrder(json) {
+    return myAxios({
+        url: '/order/save',
+        method: 'post',
+        data: json
+    })
+}

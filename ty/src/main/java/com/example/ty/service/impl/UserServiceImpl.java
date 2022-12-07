@@ -6,8 +6,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.ty.bean.Addition.UserAddition;
 import com.example.ty.bean.User;
+import com.example.ty.bean.vo.OrderElectronicVo;
 import com.example.ty.common.Result;
 import com.example.ty.exception.ServiceException;
+import com.example.ty.mapper.OrderElectronicMapper;
 import com.example.ty.mapper.UserMapper;
 import com.example.ty.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -63,6 +66,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return one;
     }
 
+    @Override
+    public List<User> throughName(String name) {
+        return userMapper.throughName(name);
+    }
 
 
     //此方法用于查询用户是否存在，只要名字一样就是存在，
@@ -94,5 +101,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
         return one;
     }
+
+
 
 }
