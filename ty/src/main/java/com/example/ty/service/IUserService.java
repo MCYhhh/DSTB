@@ -20,4 +20,5 @@ public interface IUserService extends IService<User> {
     UserAddition login(UserAddition userAddition);
 
     User register(UserAddition userAddition);
+
 }

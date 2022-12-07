@@ -35,6 +35,10 @@ public class Result {
         return total;
     }
 
+    public static Result success(String msg) {
+
+        return new Result(200,msg,1L,null);
+    }
 
     public static Result success() {
 

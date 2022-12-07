@@ -7,7 +7,7 @@ spring:
     name: ty_company
     url: jdbc:mysql://localhost:3306/ty_company?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: root
-    password: 123456
+    password: Syt20020204syt
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis:

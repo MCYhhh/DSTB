@@ -4,4 +4,5 @@
     <select id="pagedefine" resultType="com.example.ty.bean.User">
         select * from user
     </select>
+
 </mapper>

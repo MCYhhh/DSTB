@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.ty.mapper.OrderElectronicWMapper">
+    <select id="orderdetail_w" resultType="com.example.ty.bean.vo.OrderElectronicWVo">
+        select Oid,order.Eid,Otime,Ebrand,Emodel,Eimage,Eprice,Ecolor,Edesp,Uid,Ostate  from ty_company.order join electronics on order.Eid=electronics.Eid where Wid=#{id};
+    </select>
+</mapper>
