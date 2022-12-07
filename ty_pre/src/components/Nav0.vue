@@ -27,7 +27,7 @@ export default {
         items:[
             {title:'首页',icon:'el-icon-s-home',url:'/home0'},
             {title:'客户管理',icon:'el-icon-s-custom',url:'/mycustomer'},
-            {title:'客户跟进',icon:'el-icon-s-management',url:'/process'},
+            // {title:'客户跟进',icon:'el-icon-s-management',url:'/process'},
              {title:'订单管理',icon:'el-icon-s-order',url:'/order'},
             {title:'个人中心',icon:'el-icon-house',url:'/mine0'},
         ]

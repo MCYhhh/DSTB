@@ -54,11 +54,9 @@
         </el-card>
     </div>
 
-
-
 </template>
 <script>
-import { pageUserApi } from "@/api/index";
+import { MyUserApi } from "@/api/index";
 export default {
     name: 'myCustomer' ,
      data() {
@@ -74,9 +72,9 @@ export default {
     },
     methods:{
       async getUserList(){
-        const json=JSON.stringify(this.queryInfo);
-        const {data: res}= await pageUserApi(json);
-        console.log(json)
+        // const json=JSON.stringify(this.queryInfo);
+        let wid=JSON.parse(localStorage.getItem("user")).wid
+        const {data: res}= await MyUserApi(wid);
         console.log(res);
         if(res.code!=200)
             return this.$message.error("获取用户列表失败");
@@ -105,7 +103,7 @@ export default {
     //     console.log(res)
 
     // },
-    created(){
+    created(){  
         this.getUserList()
     },
 }

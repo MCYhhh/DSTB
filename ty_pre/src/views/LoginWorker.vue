@@ -69,6 +69,8 @@ export default ({
             if(res.code!==200)
                 return this.$message.error("登录失败");
             this.$message.success("登录成功");
+            localStorage.setItem('type',1)
+            localStorage.setItem("user",JSON.stringify(res.data));     //存储用户信息到浏览器
            if(res.data.wtype===0)   //销售人员
                  this.$router.push('/home0');
             else

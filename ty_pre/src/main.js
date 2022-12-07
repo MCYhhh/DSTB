@@ -7,7 +7,6 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/global.css';
 import axios from 'axios';
-import store from '@/store'
 
 //配置请求的根路径
 // axios.defaults.baseURL='http://localhost:8082/';
@@ -25,7 +24,6 @@ new Vue({
   el: '#app',
   render: h => h(App),
   router,
-  store,
   components: { App },
   template: '<App/>'
 })

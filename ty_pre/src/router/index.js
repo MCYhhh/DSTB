@@ -119,11 +119,11 @@ const routes=[
       name:"MyOrder",
       component:()=>import('@/views/User/MyOrder')
     },
-    {
-      path: "/collect",  //我的收藏
-      name:"Collect",
-      component:()=>import('@/views/User/Collect')
-    },
+    // {
+    //   path: "/collect",  //我的收藏
+    //   name:"Collect",
+    //   component:()=>import('@/views/User/Collect')
+    // },
     {
       path: "/mine",  //个人中心
       name:"MineUser",
@@ -147,11 +147,11 @@ const routes=[
       name:"myCustomer",
       component:()=>import('@/views/Worker0/myCustomer')
     },
-    {
-      path: "/process",  //客户跟进
-      name:"Process",
-      component:()=>import('@/views/Worker0/Process')
-    },
+    // {
+    //   path: "/process",  //客户跟进
+    //   name:"Process",
+    //   component:()=>import('@/views/Worker0/Process')
+    // },
     {
       path: "/order",  //订单管理
       name:"Order",

@@ -8,7 +8,7 @@
     </div>
     
       <el-dropdown style="top:-20px" >
-          <span >{{$store.state.user.uname}}</span><i class="el-icon-arrow-down" style="margin-left: 10px"></i>
+          <span >{{name}}</span><i class="el-icon-arrow-down" style="margin-left: 10px"></i>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item @click.native="toUser">退出登录</el-dropdown-item>
           <el-dropdown-item @click.native="loginout">退出系统</el-dropdown-item>
@@ -29,24 +29,44 @@
 </style>
 
 <script>
+import { onMounted } from 'vue';
 
   export default {
     name: "Header",
     props:{
         icon:String
     },
+    data(){
+      return{
+        type:localStorage.getItem('type'),
+        name:''
+      }
+    },
     methods:{
         toUser(){
-            // console.log("to_user")
+          localStorage.removeItem("user");
+          localStorage.removeItem("type");
+          if(this.type==='0'){
             this.$router.push('/loginUser');
+          }
+          else{
+            this.$router.push('/loginWorker');
+          }
         },
         loginout(){
+            localStorage.removeItem("user");
+            localStorage.removeItem("type");
             this.$router.push('/type');
         },
         collapse(){
             // console.log("jajjjj")
             this.$emit('doCollapse');
         },
+    },
+    created(){
+      let userName=JSON.parse(localStorage.getItem('user')).uname;
+      let workerName=JSON.parse(localStorage.getItem('user')).wname;
+      this.name=this.type==='0'?userName:workerName;
     }
   };
 </script>

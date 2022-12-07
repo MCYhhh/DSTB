@@ -61,7 +61,7 @@ export default {
                 // const {data: res}=await pageUserApi();
                 // console.log(res);
                 // if(res.code===200)
-                  this.tableData=res;
+                  this.tableData=res.data;
                 // else{
                 //   alert("获取数据失败")
                 // }

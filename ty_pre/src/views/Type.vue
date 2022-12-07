@@ -18,11 +18,12 @@ export default {
     },
     methods:{
        toLogin(){
-        if(this.radio===0)
-            this.$router.push("/loginUser")
-        // if(this.radio===1)
-        else
+        if(this.radio===0){
+            this.$router.push("/loginUser")}
+        else{
             this.$router.push("/loginWorker")
+        }
+            
         }
     },
 }

@@ -32,7 +32,7 @@
 import { loginUserApi } from "@/api/index";
 // import { setToken } from '@/utils/auth'  //引入存token
 export default ({
-    data(){
+    data(){   
         return{
             //这是登录表单的数据绑定对象
             loginForm:{
@@ -65,19 +65,17 @@ export default ({
           if(valid){
             const json=JSON.stringify(this.loginForm);
             const {data: res}=await loginUserApi(json);
-            // console.log(res);
+            console.log(res);
             if(res.code!==200)
                 return this.$message.error("登录失败");
             this.$message.success("登录成功");
-            console.log(res.data.token)
-            // setToken(res.data.token);
-           
-           localStorage.setItem("user",JSON.stringify(res.data));     //存储用户信息到浏览器
-            this.$store.commit('cUser')   //登录成功重新get user
+            console.log(res.data)
+            console.log(typeof res.data)
+           localStorage.setItem("type",0)
+           localStorage.setItem("user",JSON.stringify((res.data)));     //存储用户信息到浏览器
             // console.log(this.$store.state.user);
             this.$router.push("/home")  //跳转到首页
-            this.$store.state.isNew=true;  //让welLogin组件上的退出按钮出现
-            this.$store.state.isLogin=false;  
+ 
           }
         })
       }
@@ -85,6 +83,7 @@ export default ({
 
 })
 </script>
+
 <style>
 .item el-form-item__label{
     color: rgb(255, 255, 255);

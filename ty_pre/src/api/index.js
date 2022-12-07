@@ -61,3 +61,38 @@ export function BlurUserApi(json) {
         data:json
     })
 }
+
+// 查询用户的订单
+export function MyOrderApi(uid) {
+    return myAxios({
+        url: '/orderelectronic/myorder?id='+uid +"&token="+localStorage.getItem("user").token,
+        method: 'get',
+        data:uid
+    })
+}
+
+// 查询销售人员的客户
+export function MyUserApi(wid) {
+    return myAxios({
+        url: '/orderuser/myuser?id='+wid +"&token="+localStorage.getItem("user").token,
+        method: 'get',
+        data:wid
+    })
+}
+
+// 查询销售人员负责的订单
+export function MyUserOrderApi(wid) {
+    return myAxios({
+        url: '/orderelectronicw/myorder?id='+wid +"&token="+localStorage.getItem("user").token,
+        method: 'get',
+        data:wid
+    })
+}
+
+// 查询所有销售人员api
+export function listAllWorker0Api() {
+    return myAxios({
+        url: '/worker/findAll',
+        method: 'get'
+    })
+}
