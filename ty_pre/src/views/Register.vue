@@ -114,6 +114,11 @@ export default ({
           // console.log(valid)
           // this.$refs[this.registerForm].validate( async (valid) => {
           if(valid){
+            if(this.registerForm.usex==="1")
+              this.registerForm.usex="男"
+            else
+              this.registerForm.usex="女"
+            console.log(this.registerForm)
             const json=JSON.stringify(this.registerForm);
             const {data: res}=await registerUserApi(json);
             // console.log(res);

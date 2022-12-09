@@ -22,11 +22,40 @@
           <el-button type="danger">删除</el-button>
         </el-table-column>
       </el-table>
+
+        <!-- 编辑界面 -->
+    <el-dialog :title="title" :visible.sync="editFormVisible" width="30%" @click='closeDialog("edit")'>
+      <el-form label-width="120px" :model="editForm" ref="editForm" :rules="rules">
+        <el-form-item label="产品id" prop="eid">
+          <el-input size="small" v-model="editForm.systemNo" auto-complete="off" placeholder="请输入产品编码"></el-input>
+        </el-form-item>
+        <el-form-item label="品牌" prop="ebrand">
+          <el-input size="small" v-model="editForm.roleName" auto-complete="off" placeholder="请输入产品品牌"></el-input>
+        </el-form-item>
+        <el-form-item label="名称" prop="emodel">
+          <el-input size="small" v-model="editForm.roleNo" auto-complete="off" placeholder="请输入产品名称"></el-input>
+        </el-form-item>
+        <el-form-item label="价格" prop="eprice">
+          <el-input size="small" v-model="editForm.roleNo" auto-complete="off" placeholder="请输入产品价格"></el-input>
+        </el-form-item>
+        <el-form-item label="颜色" prop="ecolor">
+          <el-input size="small" v-model="editForm.roleNo" auto-complete="off" placeholder="请输入产品颜色"></el-input>
+        </el-form-item>
+        <el-form-item label="介绍" prop="edesp">
+          <el-input size="small" v-model="editForm.roleNo" auto-complete="off" placeholder="请输入产品介绍"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button size="small" @click='closeDialog("edit")'>取消</el-button>
+        <el-button size="small" type="primary" :loading="loading" class="title" @click="submitForm('editForm')">保存</el-button>
+      </div>
+    </el-dialog>
+
     </div>
 </template>
 
 <script>
-import { FindElectronicsApi } from "@/api/index";
+import { FindElectronicsApi,changeElectronicApi  } from "@/api/index";
 export default {
    name:'Home',
     data(){

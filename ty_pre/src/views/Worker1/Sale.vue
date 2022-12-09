@@ -19,23 +19,23 @@
                 <el-table-column label="销售人员id" prop="wid"></el-table-column>
                 <el-table-column label="销售人员账号" prop="waccount"></el-table-column>
                 <el-table-column label="销售人员姓名" prop="wname"></el-table-column>
-                <el-table-column label="销售人员性别" >
+                <!-- <el-table-column label="销售人员性别" >
                     <template slot-scope="scope">
                         <el-tag
                             :type="scope.row.usex === '女' ? 'primary' : 'success'"
                             disable-transitions>{{scope.row.usex==="女"?"女":"男"}}</el-tag>
                     </template>
-                </el-table-column>
-                <el-table-column label="销售人员电话" prop="wtel"></el-table-column>
-                <el-table-column label="销售人员地址" prop="wsite"></el-table-column>
+                </el-table-column> -->
+                <!-- <el-table-column label="销售人员电话" prop="wtel"></el-table-column> -->
+                <!-- <el-table-column label="销售人员地址" prop="wsite"></el-table-column> -->
                 <el-table-column label="操作" >
                     <template slot-scope="scope">
                         <!-- 修改 -->
-                        <el-tooltip class="item" effect="dark" content="修改客户" placement="top" :enterable="false">
+                        <el-tooltip class="item" effect="dark" content="修改员工" placement="top" :enterable="false">
                             <el-button type="primary" icon="el-icon-edit"></el-button>
                         </el-tooltip>
                         <!-- 删除 -->
-                         <el-tooltip class="item" effect="dark" content="删除客户"  placement="top" :enterable="false">
+                         <el-tooltip class="item" effect="dark" content="删除员工"  placement="top" :enterable="false">
                             <el-button type="danger" icon="el-icon-delete"></el-button>
                         </el-tooltip>
                     </template>
@@ -74,15 +74,15 @@ export default {
       async getUserList(){
         console.log("hahhhhhh")
         // const json=JSON.stringify(this.queryInfo);
-        let wid=JSON.parse(localStorage.getItem("user")).wid
-        const {data: res}= await listAllWorker0Api(wid);
+        // let wid=JSON.parse(localStorage.getItem("user")).wid
+        const {data: res}= await listAllWorker0Api();
         console.log(res);
         if(res.code!=200)
             return this.$message.error("获取用户列表失败");
         // let item=res.data;
         // this.userList=res.data.filter(item=>item.wtype==1)
         console.log(res.data)
-        // this.userList=res.data
+        this.userList=res.data
         console.log("1111")
         // console.log(this.userList)
         this.total=res.total

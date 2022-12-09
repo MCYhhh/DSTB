@@ -18,7 +18,6 @@ myAxios.interceptors.request.use(config => {
     config.headers['Content-Type'] = 'application/json;charset=utf-8';
     let user = JSON.parse(localStorage.getItem("user")) ? JSON.parse((localStorage.getItem("user"))) : null
     if (user) {
-        console.log(user.token)
         config.headers['token'] = user.token;  // 设置请求头
     }
     return config;

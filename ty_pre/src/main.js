@@ -7,6 +7,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/global.css';
 import axios from 'axios';
+import moment from 'moment';
 
 //配置请求的根路径
 // axios.defaults.baseURL='http://localhost:8082/';
@@ -17,7 +18,8 @@ Vue.use(ElementUI);
 Vue.use(router);
 // Vue.use(store);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
+Vue.prototype.$moment = moment;
 
 /* eslint-disable no-new */
 new Vue({

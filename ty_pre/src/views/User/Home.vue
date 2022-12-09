@@ -21,7 +21,7 @@
          <el-table-column prop="operate" label="操作">
              <template slot-scope="scope">
         <el-button type="success"
-          @click.native.prevent="buyElectronics(scope.$index, tableData)"
+          @click="buyElectronics(scope.$index, scope.row)"
           size="small">
           {{display}}
         </el-button>
@@ -56,14 +56,21 @@ export default {
         currentPage2: 5,
         currentPage3: 5,
         currentPage4: 4,
-        display: "购买"
+        display: "购买",
+        addinfo:{
+          'uid':"",
+          'eid':'',
+          'wid': 1,
+          'otime':"",
+          "ostate":0
+        }
     };
    },
    methods:{
    async loadGet(){
             // async function (){
               const { data: res } = await FindElectronicsApi();
-              console.log(res)
+              // console.log(res)
                   this.tableData=res.data;
         },
          handleSizeChange(val) {
@@ -72,19 +79,24 @@ export default {
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
       },
-       async buyElectronics(index, rows){
-        console.log(rows.eid)
-        // const { data: res } = await addOrder();
-        // // console.log(res)
-        // if(res.code!=200)
-        //       return this.$message.error("登录不成功");
-        // this.$message.success("购买成功");
-        // rows.splice(index, 1);
-        // console.log("kakkkkkkak")
-        // console.log(index)
-        //  console.log(rows)
-
-        // this.tableData=res.data;
+    async buyElectronics(index, row){
+    console.log(row.eid);
+      this.addinfo = {
+      uid: JSON.parse(localStorage.getItem("user")).uid,
+      eid: row.eid,
+      wid: 1,
+      otime: this.$moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
+      ostate: 0
+      };
+      console.log(JSON.stringify(this.addinfo))
+      const { data: res } = await addOrder((this.addinfo));
+      console.log(res);
+      if (res.code != "200") 
+           return this.$message.error("购买不成功");
+       this.$message.success("购买成功");
+       row.splice(index, 1);
+       this.display="已购买"
+        this.tableData=row;
 
     },
     },
