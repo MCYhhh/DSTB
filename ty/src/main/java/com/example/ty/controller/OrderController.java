@@ -4,6 +4,8 @@ package com.example.ty.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.ty.bean.Electronics;
 import com.example.ty.bean.Order;
+import com.example.ty.bean.User;
+import com.example.ty.common.Result;
 import com.example.ty.service.IElectronicsService;
 import com.example.ty.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,40 +27,47 @@ public class OrderController {
     @Autowired
     private IOrderService iOrderService ;
 
-    //查找所有
+    //根据uid查询特定的
+    @GetMapping("/{oid}")
+    public Result findOne(Integer oid){
+//        iUserService.getById(uid);
+        return Result.success(iOrderService.getById(oid),"特定用户查询成功");
+    }
+
+
+    //查询所有
     @GetMapping("/findAll")
-    public List<Order> listall(){
-        return iOrderService.list();
+    public Result listall(){
+        //iUserService.list();
+        return Result.success(iOrderService.list(),"查询成功");
     }
 
     //新增
     @PostMapping("/save")
-    public boolean save(@RequestBody Order order){
-        return iOrderService.save(order);
-    }
-    //修改
-    @PostMapping("/modify")
-    public boolean modify(@RequestBody Order order){
-        return iOrderService.updateById(order);
-    }
-    //新增或修改
-    @PostMapping("/saveOrmodify")
-    public boolean saveOrmodify(@RequestBody Order order){
-        return iOrderService.saveOrUpdate(order);
-    }
-    //删除
-    @GetMapping("/delete")
-    public boolean delete(Integer oid){
-        return iOrderService.removeById(oid);
+    public Result save(@RequestBody Order order){
+//        iOrderService.save(order);
+        return Result.success(iOrderService.save(order),"添加成功");
     }
 
-    //查询（模糊、匹配）
-    //模糊查询时间
-    @PostMapping("/blur")
-    public List<Order> blur(@RequestBody Order order){
-        LambdaQueryWrapper<Order> lambdaQueryWrapper=new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.like(Order::getOtime,order.getOtime());
-        return iOrderService.list(lambdaQueryWrapper);
+    //修改
+    @PostMapping("/modify")
+    public Result modify(@RequestBody Order order){
+        //iUserService.updateById(user);
+        return Result.success(iOrderService.updateById(order),"修改成功");
+    }
+
+    //新增或修改
+    @PostMapping("/saveOrmodify")
+    public Result saveOrmodify(@RequestBody Order order){
+        // iUserService.saveOrUpdate(user);
+        return Result.success(iOrderService.saveOrUpdate(order),"修改成功");
+    }
+
+    //删除
+    @DeleteMapping("/delete")
+    public Result delete(Integer oid){
+        iOrderService.removeById(oid);
+        return Result.success();
     }
 
 
